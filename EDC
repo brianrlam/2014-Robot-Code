@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */ 
 
+//this is the logarithm/exponential driver code
+
 package edu.wpi.first.wpilibj.templates;
 import com.sun.squawk.util.MathUtils;
 /**
