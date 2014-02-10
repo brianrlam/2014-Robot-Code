@@ -1,0 +1,49 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package edu.wpi.first.wpilibj.templates;
+ 
+import edu.wpi.first.wpilibj.Joystick;
+/**
+ *
+ * @author anna
+ */
+public class ButtonLayout{
+    private Joystick leftStick;
+    private Joystick rightStick;
+    private Joystick attackController;
+    private Shooter shooter;
+    private Arm ballGetter;
+    
+    public ButtonLayout(Joystick left, Joystick right, Joystick atk,
+                             Shooter shoot, Arm ballGetter){
+        leftStick= left;
+        rightStick= right;
+        attackController= atk;
+        shooter= shoot;
+        this.ballGetter= ballGetter;
+    }
+    
+    public void configureButtons() {
+        
+        if (attackController.getRawButton(1)){
+            shooter.shoot();
+        }
+        if (attackController.getRawButton(2)){
+            ballGetter.down();
+        }
+        if (attackController.getRawButton(4)){
+            ballGetter.up();
+        }
+        if (attackController.getRawButton(6)){
+            ballGetter.spin();
+        }
+        else if(!attackController.getRawButton(6)){
+            ballGetter.spinStop();
+        }
+        
+    }
+}
