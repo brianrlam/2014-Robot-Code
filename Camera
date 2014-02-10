@@ -1,0 +1,114 @@
+/*
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
+
+package edu.wpi.first.wpilibj.templates;
+
+//import edu.wpi.first.wpilibj.SimpleRobot;
+//import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.camera.AxisCamera;
+import edu.wpi.first.wpilibj.image.BinaryImage;
+import edu.wpi.first.wpilibj.image.ColorImage;
+import edu.wpi.first.wpilibj.image.CriteriaCollection;
+import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
+import edu.wpi.first.wpilibj.image.NIVision;
+import edu.wpi.first.wpilibj.image.NIVisionException;
+import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
+//import edu.wpi.first.wpilibj.image.RGBImage;
+//import edu.wpi.first.wpilibj.image.HSLImage;
+import edu.wpi.first.wpilibj.camera.AxisCameraException;
+/*Commented out imports are potentiall useful but not needed right now.*/
+
+/**
+*
+* @authors ngang/suazor/wicksk
+*/
+
+public class Camera {
+
+    CriteriaCollection filterGroup;
+    //CriteriaCollection is a group of conditions for the particle filter to use.
+    AxisCamera hotGoalDetect;
+  
+
+    public void imageProcesser() {
+         /*imageProcesser instantiates the CriteriaCollection/Camera 
+         and looks for rectangles of a certain height and width*/
+         hotGoalDetect = new AxisCamera();
+         filterGroup = new CriteriaCollection();
+         filterGroup.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 30, 300, false);
+         filterGroup.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 176, 1762, false);
+         /*MIN AND MAX PIXEL LIMITS NEED TO BE TESTED AND ADJUSTED THESE ARE JUST PLACEHOLDER VALUES FOR THE LEGIT ONES. 
+         CAN ONLY BE TESTED ONCE WE HAVE THE NEW CAMERA :)*/
+     
+         
+}
+   public boolean hotGoalsPresent () throws NIVisionException {
+       boolean goalFound= false;
+       /*Creates the boolean which is returned at the end of the method which
+       says if the hot goals are present.*/
+       hotGoalDetect.getInstance(); 
+    
+       try {
+            ColorImage currentPic = hotGoalDetect.getImage();
+           /*a sample image taken with the axis camera must be inserted for 
+             testing -  getImage uses realtime pictures from the camera */
+           BinaryImage colorIsolation = currentPic.thresholdHSL(74, 155, 25, 100, 10, 65);
+           /*This only keeps green items (such as the retroreflective tape 
+           will be if a green led is shined onto it.)*/
+           BinaryImage bigParticlesOnly = colorIsolation.removeSmallObjects(false, 3);
+           /*Keep only particles above a certain size by eroding the image 
+           down three times. The 'false' here indicates that it is
+           connectivity-4. Connectivity-4 simply means that particles are 
+           only considered connected to each other if they touch directly above,
+           below, left, and right (imagine a tic-tac-toe board: the particles 
+           are only considered connected to the center top, center bottom, 
+           middle left, and middle  right.) Connectivity-8 would mean that a 
+           particle in the center of the board would be connected to every
+           other square in the tic tac toe board.*/
+           BinaryImage fillRectangle = bigParticlesOnly.convexHull(false);
+           //Fills in rectangles found even if they are slightly covered up.
+           BinaryImage findTape = fillRectangle.particleFilter(filterGroup);
+           /*Finds the filled in rectangles which match the criteria in the
+           CriteriaCollection.*/
+           int particleNumber = findTape.getNumberParticles();
+          //Gets the number of eliglible goals (particles)
+          if (particleNumber > 1) {
+               goalFound= true;
+          }
+          //If there are eligible goals in the area, sets bool to true.
+          else {
+               goalFound= false;
+          }
+          //If no goals are found, sets bool to false.
+  
+               
+
+          currentPic.free();
+          colorIsolation.free();
+          bigParticlesOnly.free();
+          fillRectangle.free();
+          finalGoalDetect.free();
+          /*Sets the images free after using them, which avoids using up cRIO
+          memory.*/
+          
+         
+        } 
+       
+catch (NIVisionException ex) {
+                ex.printStackTrace();
+            }
+       catch (AxisCameraException ex) {
+           ex.printStackTrace();
+           }
+       //Gets the errors which have been thrown by the methods in hotGoalPresent.
+       return bool;
+      
+       //Returns the boolean which has been set by the hotGoalPresent method. 
+     
+     
+                      
+   }
+  }
