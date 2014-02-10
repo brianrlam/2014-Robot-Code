@@ -32,5 +32,12 @@ public class Shooter {
         shotGate.retract();
         shotGate2.retract
         shooterPiston.extend();
+        /*when the method “shoot” is called, the gate piston extends and the robot waits for 0.1 seconds. 
+        *This releases the shooter piston which shoots the ball. The shooter piston retracts, the robot 
+        *waits for 0.1 seconds, the gate piston retracts ( the gate closes), and the shooter piston 
+        *extends again. This method is written for a pre-pressurized system with a gate latch that, when 
+        *released, allows the shooter piston to fully extend at a higher velocity than it would without being pre-pressurized.
+        */  
+
     }
 }
