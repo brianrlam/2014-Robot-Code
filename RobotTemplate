@@ -25,14 +25,14 @@ import  edu.wpi.first.wpilibj.Compressor;
  * directory.
  */
 public class RobotTemplate extends SimpleRobot {
-    private Joystick leftJoystick = new Joystick (1);
-    private Joystick rightJoystick = new Joystick (2);
-    private Joystick attackJS = new Joystick(3);
-    private RobotDrive driveTrain = new RobotDrive(4, 3, 2, 1);//1/2 left 3/4 right (real nums)
-    private Shooter shtr= new Shooter(); 
-    private Arm arm= new Arm();
-    private ButtonLayout bL= new ButtonLayout(leftJoystick, rightJoystick, attackJS, shtr, arm);
-    private Compressor comp = new Compressor(6, 7);// real numsb
+    private Joystick leftJoystick;
+    private Joystick rightJoystick;
+    private Joystick attackJS;
+    private RobotDrive driveTrain;
+    private Shooter shtr; 
+    private Arm arm;
+    private ButtonLayout bL;
+    private Compressor comp;
     
     /**
      * This function is called once each time the robot enters autonomous mode.
@@ -41,6 +41,14 @@ public class RobotTemplate extends SimpleRobot {
         
     }
     public void robotInit(){
+        leftJoystick = new Joystick (1);
+        rightJoystick = new Joystick (2);
+        attackJS = new Joystick(3);
+        driveTrain = new RobotDrive(4, 3, 2, 1);//1/2 left 3/4 right (real nums)
+        shtr= new Shooter();
+        arm= new Arm();
+        bL= new ButtonLayout(leftJoystick, rightJoystick, attackJS, shtr, arm);
+        comp = new Compressor(6, 7);// real numsb
         comp.start();
     }
             
