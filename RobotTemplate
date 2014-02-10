@@ -1,0 +1,71 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) FIRST 2008. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
+package edu.wpi.first.wpilibj.templates;
+ 
+
+import edu.wpi.first.wpilibj.SimpleRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SimpleRobot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.camera.AxisCamera;
+import  edu.wpi.first.wpilibj.Compressor;
+
+
+/**
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to each mode, as described in the SimpleRobot
+ * documentation. If you change the name of this class or the package after
+ * creating this project, you must also update the manifest file in the resource
+ * directory.
+ */
+public class RobotTemplate extends SimpleRobot {
+    private Joystick leftJoystick = new Joystick (1);
+    private Joystick rightJoystick = new Joystick (2);
+    private Joystick attackJS = new Joystick(3);
+    private RobotDrive driveTrain = new RobotDrive(4, 3, 2, 1);//1/2 left 3/4 right (real nums)
+    private Shooter shtr= new Shooter(); 
+    private Arm arm= new Arm();
+    private ButtonLayout bL= new ButtonLayout(leftJoystick, rightJoystick, attackJS, shtr, arm);
+    private Compressor comp = new Compressor(6, 7);// real numsb
+    
+    /**
+     * This function is called once each time the robot enters autonomous mode.
+     */
+    public void autonomous() {
+        
+    }
+    public void robotInit(){
+        comp.start();
+    }
+            
+    /**
+     * This function is called once each time the robot enters operator control.
+     */
+    public void operatorControl() {
+       //compressor is running
+        double leftDriveVal = 0.0;
+        double rightDriveVal = 0.0;
+        while(isOperatorControl() && isEnabled()) {
+            getWatchdog().feed();
+            //leftDriveVal = (leftJoystick.getY() * -1);
+            //rightDriveVal = (rightJoystick.getY() * -1); 
+            driveTrain.tankDrive(EDC.convertVal(leftDriveVal), EDC.convertVal(rightDriveVal));
+            bL.configureButtons();
+            //Timer.delay(0.01);
+           
+        }
+    }
+    
+    /**
+     * This function is called once each time the robot enters test mode.
+     */
+    public void test() {
+    
+    }
+}
