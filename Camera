@@ -104,11 +104,14 @@ catch (NIVisionException ex) {
            ex.printStackTrace();
            }
        //Gets the errors which have been thrown by the methods in hotGoalPresent.
-       return bool;
-      
-       //Returns the boolean which has been set by the hotGoalPresent method. 
+       return goalFound;
+      //Returns the boolean which has been set by the hotGoalPresent method. 
      
-     
-                      
+     if (goalFound = true) {
+        System.out.println ("A hot goal is found!");
+        }
+        else { 
+        System.out.println ("No hot goals were found.");
+        }
    }
   }
