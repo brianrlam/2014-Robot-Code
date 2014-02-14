@@ -1,0 +1,19 @@
+package edu.wpi.first.wpilibj.templates;
+
+public class autonomous
+
+shooter = new Shooter();
+Camera = new Camera();
+
+public void autonomous() {
+
+if (hotGoalsPresent = true) {
+    shooter.shoot();
+    driveTrain.drive(1.0,0.0);
+    }
+
+else if (hotGoalsPresent = false) {
+	driveTrain.drive(1.0,0.0);
+	shooter.shoot();
+	}
+}		
