@@ -7,12 +7,12 @@ Camera = new Camera();
 
 public void autonomous() {
 
-if (goalsFound = true) {
+if (goalsThere = true) {
     shooter.shoot();
     driveTrain.drive(1.0,0.0);
     }
 
-else if (goalsFound = false) {
+else if (goalsThere = false) {
 	driveTrain.drive(1.0,0.0);
 	shooter.shoot();
 	}
