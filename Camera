@@ -1,25 +1,16 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
+
 
 package edu.wpi.first.wpilibj.templates;
 
-//import edu.wpi.first.wpilibj.SimpleRobot;
-//import edu.wpi.first.wpilibj.Timer;
+
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.image.BinaryImage;
 import edu.wpi.first.wpilibj.image.ColorImage;
 import edu.wpi.first.wpilibj.image.CriteriaCollection;
-import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
 import edu.wpi.first.wpilibj.image.NIVision;
 import edu.wpi.first.wpilibj.image.NIVisionException;
-import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
-//import edu.wpi.first.wpilibj.image.RGBImage;
-//import edu.wpi.first.wpilibj.image.HSLImage;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
-/*Commented out imports are potentiall useful but not needed right now.*/
+//import edu.wpi.first.wpilibj.image.HSLImage;
 
 /**
 *
@@ -30,29 +21,28 @@ public class Camera {
 
     CriteriaCollection filterGroup;
     //CriteriaCollection is a group of conditions for the particle filter to use.
-    AxisCamera hotGoalDetect;
+    public AxisCamera hotGoalDetect;
   
 
     public void imageProcesser() {
          /*imageProcesser instantiates the CriteriaCollection/Camera 
          and looks for rectangles of a certain height and width*/
-         hotGoalDetect = new AxisCamera();
          filterGroup = new CriteriaCollection();
-         filterGroup.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 30, 300, false);
-         filterGroup.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 176, 1762, false);
+         filterGroup.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 30, 50, false);
+         filterGroup.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 280, 350, false);
          /*MIN AND MAX PIXEL LIMITS NEED TO BE TESTED AND ADJUSTED THESE ARE JUST PLACEHOLDER VALUES FOR THE LEGIT ONES. 
          CAN ONLY BE TESTED ONCE WE HAVE THE NEW CAMERA :)*/
      
          
 }
-   public boolean hotGoalsPresent () throws NIVisionException {
-       boolean goalFound= false;
+   public void hotGoalsPresent() throws NIVisionException {
+        boolean goalsThere = false;
        /*Creates the boolean which is returned at the end of the method which
        says if the hot goals are present.*/
-       hotGoalDetect.getInstance(); 
+       hotGoalDetect = AxisCamera.getInstance(); 
     
        try {
-            ColorImage currentPic = hotGoalDetect.getImage();
+           ColorImage currentPic = hotGoalDetect.getImage(); 
            /*a sample image taken with the axis camera must be inserted for 
              testing -  getImage uses realtime pictures from the camera */
            BinaryImage colorIsolation = currentPic.thresholdHSL(74, 155, 25, 100, 10, 65);
@@ -75,43 +65,39 @@ public class Camera {
            CriteriaCollection.*/
            int particleNumber = findTape.getNumberParticles();
           //Gets the number of eliglible goals (particles)
-          if (particleNumber > 1) {
-               goalFound= true;
-          }
-          //If there are eligible goals in the area, sets bool to true.
-          else {
-               goalFound= false;
-          }
-          //If no goals are found, sets bool to false.
-  
-               
-
+          
           currentPic.free();
           colorIsolation.free();
           bigParticlesOnly.free();
           fillRectangle.free();
-          finalGoalDetect.free();
-          /*Sets the images free after using them, which avoids using up cRIO
-          memory.*/
+          findTape.free();
           
-         
-        } 
-       
+          if (particleNumber > 1) {
+              goalsThere = true;
+           }
+          //If there are eligible goals in the area, sets bool to true.
+          else {
+              goalsThere = false;
+        
+              }
+           //Returns the boolean which has been set by the hotGoalPresent method. 
+          //If no goals are found, sets bool to false.
+          
+       } 
+   catch (AxisCameraException ex) {        // this is needed if the camera.getImage() is called
+       ex.printStackTrace();
+   }
 catch (NIVisionException ex) {
                 ex.printStackTrace();
             }
-       catch (AxisCameraException ex) {
-           ex.printStackTrace();
-           }
-       //Gets the errors which have been thrown by the methods in hotGoalPresent.
-       return goalFound;
-      //Returns the boolean which has been set by the hotGoalPresent method. 
      
-     if (goalFound = true) {
-        System.out.println ("A hot goal is found!");
-        }
-        else { 
-        System.out.println ("No hot goals were found.");
-        }
+      //Gets the errors which have been thrown by the methods in hotGoalPresent.
+ if (goalsThere == true) {
+     System.out.println ("Goal Detected!");
+  }
+ else {
+     System.out.println ("No Goals Detected.");
+ }
    }
+ 
   }
