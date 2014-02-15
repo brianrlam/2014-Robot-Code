@@ -25,12 +25,12 @@ public class Shooter {
     
     public void shoot(){
         shotGate.extend();
-        shotGate2.extend
+        shotGate2.extend();
         Timer.delay(0.1);
         shooterPiston.retract();
         Timer.delay(0.1);
         shotGate.retract();
-        shotGate2.retract
+        shotGate2.retract();
         shooterPiston.extend();
         /*when the method “shoot” is called, the gate piston extends and the robot waits for 0.1 seconds. 
         *This releases the shooter piston which shoots the ball. The shooter piston retracts, the robot 
