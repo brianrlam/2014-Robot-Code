@@ -41,7 +41,7 @@ public class ButtonLayout{
             //when button 2 on the attack controller is pressed, the arm drops down on the ball
         }
 
-        }
+        
         if (attackController.getRawButton(4)){
             ballGetter.up();
             //when button 4 on the attack controller is pressed, the arm is raised
