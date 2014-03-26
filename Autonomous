@@ -1,19 +1,44 @@
 package edu.wpi.first.wpilibj.templates;
 
-public class autonomous
+//import edu.wpi.first.wpilibj.SimpleRobot;
+import edu.wpi.first.wpilibj.camera.AxisCameraException;
+import edu.wpi.first.wpilibj.image.NIVisionException;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.RobotDrive;
 
-shooter = new Shooter();
-Camera = new Camera();
+public class Autonomous {
+   
 
-public void autonomous() {
+Shooter shooter;
+Camera camera;
+RobotDrive driveTrain;
 
-if (goalsThere = true) {
-    shooter.shoot();
-    driveTrain.drive(1.0,0.0);
+public Autonomous(Shooter shtr, Camera cam){
+    shooter=shtr;
+    camera=cam;
+  
+}
+public void auton() throws NIVisionException, AxisCameraException {
+    try {
+       
+        driveTrain.tankDrive(2.0, 2.0);
+        
+        if (camera.hotGoalsPresent()) {
+            shooter.shoot();
+        }
+       
+        
+        else if (!camera.hotGoalsPresent()){
+            Timer.delay(4.0);
+            shooter.shoot();
+        }            
+    } catch (NIVisionException ex) {
+        ex.printStackTrace();
     }
+    catch (AxisCameraException ex) {
+        ex.printStackTrace();
+    }
+   }   
+}
 
-else if (goalsThere = false) {
-	driveTrain.drive(1.0,0.0);
-	shooter.shoot();
-	}
-}		
+/*First hot goal lights up 1 sec after auton starts. Switches 6 sec after first goal lights. */
