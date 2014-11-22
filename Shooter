@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Shooter {
     private Piston shotGate;
-    private Piston shotGate2;
+    private Piston shotGate2; 
     private Piston shooterPiston;
     
     public Shooter(){
