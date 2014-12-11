@@ -5,26 +5,35 @@
  */
 
 package edu.wpi.first.wpilibj.templates;
- 
-import edu.wpi.first.wpilibj.Solenoid;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 /**
  *
  * @author student
  */
 public class Piston{
     
-    private Solenoid piston;
+    private DoubleSolenoid piston;
     
-    public Piston (int port){
+    public Piston (int port1,int port2){
         //port will be replaced by the correct # for the robot being used
-        piston= new Solenoid (port);
+        piston= new DoubleSolenoid ( port1, port2);
     }
     
     public void extend(){
-        piston.set(true);
+       // piston.set(DoubleSolenoid.Value.kOff);
+        piston.set(DoubleSolenoid.Value.kForward);
+        //System.out.println("extended"+DoubleSolenoid.Value.kForward);
     }
-    
+    public void off(){
+       // piston.set(DoubleSolenoid.Value.kOff);
+        piston.set(DoubleSolenoid.Value.kOff);
+        //System.out.println("off "+DoubleSolenoid.Value.kOff);
+    }
     public void retract(){
-        piston.set(false);
+       // piston.set(DoubleSolenoid.Value.kOff);
+        piston.set(DoubleSolenoid.Value.kReverse);
+        //System.out.println("retract"+DoubleSolenoid.Value.kReverse);
     }  
 }
