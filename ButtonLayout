@@ -5,8 +5,9 @@
  */
 
 package edu.wpi.first.wpilibj.templates;
- 
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 /**
  *
  * @author anna
@@ -17,8 +18,6 @@ public class ButtonLayout{
     private Joystick attackController;
     private Shooter shooter;
     private Arm ballGetter;
-     //the ballgetter is the arm, and is used to roll the ball into the robot for shooting
-
     
     public ButtonLayout(Joystick left, Joystick right, Joystick atk,
                              Shooter shoot, Arm ballGetter){
@@ -31,30 +30,41 @@ public class ButtonLayout{
     
     public void configureButtons() {
         
-        if (attackController.getRawButton(1)){
-            shooter.shoot();
-        //when button 1 on the attack controller is pressed, the shooter shoots (see shooter code)
-
-        }
-        if (attackController.getRawButton(2)){
-            ballGetter.down();
-            //when button 2 on the attack controller is pressed, the arm drops down on the ball
-        }
-
-        
-        if (attackController.getRawButton(4)){
-            ballGetter.up();
-            //when button 4 on the attack controller is pressed, the arm is raised
-
-        }
         if (attackController.getRawButton(6)){
-            ballGetter.spin();
-            //when button 6 on the attack controller is pressed, the roller on the arm will spin, rolling the ball into to the robot and preparing it to be shot
+            shooter.shoot();
 
         }
         else if(!attackController.getRawButton(6)){
+            shooter.setup();
+        }
+        /* if (attackController.getRawButton(2)){
+            shooter.test2();
+        }
+         if (attackController.getRawButton(4)){
+            shooter.test1();
+         }
+         if (attackController.getRawButton(8)){
+            shooter.test3();
+         }*/
+        if (attackController.getRawButton(5)){
+            ballGetter.up();
+        }
+         if (attackController.getRawButton(7)){
+            ballGetter.down();
+        }
+        if(attackController.getRawButton(3)){
+            ballGetter.spin();
+        }
+        else if(!attackController.getRawButton(3)){
             ballGetter.spinStop();
-            //when button 6 is not being pressed on the attack controller, the roller on the arm will not move
+           // System.out.println("NOT rolling");
+        }
+        if(attackController.getRawButton(1)){
+            ballGetter.spinBack();
+        }
+        else if(!attackController.getRawButton(1)){
+            ballGetter.spinStop();
+           // System.out.println("NOT rolling");
         }
         
     }
