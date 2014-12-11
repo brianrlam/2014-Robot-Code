@@ -2,9 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */ 
-
-//this is the logarithm/exponential driver code
+ */
 
 package edu.wpi.first.wpilibj.templates;
 import com.sun.squawk.util.MathUtils;
