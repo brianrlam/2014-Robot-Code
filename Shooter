@@ -5,39 +5,54 @@
  */
 
 package edu.wpi.first.wpilibj.templates;
- 
+
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.RobotDrive;
 /**
  *
  * @author student
  */
 public class Shooter {
-    private Piston shotGate;
-    private Piston shotGate2; 
+    private  Piston shotGate;
     private Piston shooterPiston;
-    
-    public Shooter(){
-    shotGate= new Piston(2);
-    shotGate2= new Piston (3)
-    shooterPiston = new Piston(4);
+    private Timer t = new Timer();
+    private RobotDrive rD;
+    public Shooter(RobotDrive robotD){
+        shotGate= new Piston(2,1);
+        shooterPiston = new Piston(6,5);
+        rD=robotD;
     }
     
+    public void test1(){
+    shooterPiston.extend();
+        //shooterPiston.extend();
+    }
+    public void test3(){
+    shooterPiston.retract();
+        //shooterPiston.extend();
+    }
+    public void test2(){
+    shotGate.retract();
+        //shooterPiston.retract();
+    }
     public void shoot(){
-        shotGate.extend();
-        shotGate2.extend();
-        Timer.delay(0.1);
-        shooterPiston.retract();
-        Timer.delay(0.1);
         shotGate.retract();
-        shotGate2.retract();
+        t.start();
+            while(t.get()<1){
+                System.out.println("SHOOTER");
+            }
+        shooterPiston.retract();
+        t.start();
+        while(t.get()<1){
+                System.out.println("SHOOTER");
+            }
+        shotGate.extend();
         shooterPiston.extend();
-        /*when the method “shoot” is called, the gate piston extends and the robot waits for 0.1 seconds. 
-        *This releases the shooter piston which shoots the ball. The shooter piston retracts, the robot 
-        *waits for 0.1 seconds, the gate piston retracts ( the gate closes), and the shooter piston 
-        *extends again. This method is written for a pre-pressurized system with a gate latch that, when 
-        *released, allows the shooter piston to fully extend at a higher velocity than it would without being pre-pressurized.
-        */  
-
+    }
+    public void setup(){
+        shotGate.extend();
+        shooterPiston.extend();
+        //System.out.println("setup");
     }
 }
