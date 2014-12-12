@@ -6,9 +6,14 @@
 
 package edu.wpi.first.wpilibj.templates;
 
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.RobotDrive;
+
+/*-----------------------------------------------------------
+* The Shooter class instantiates the pistons, shooterPiston *
+* and the shotGate. The 
+------------------------------------------------------------*/
+
 /**
  *
  * @author student
