@@ -4,6 +4,12 @@
  * and open the template in the editor.
  */
 
+/*------------------------------------------------------------------------------------
+* Piston class creates methods for the solenoids, which control the pistons. This    *
+* class contains three public methods; extend, off, and retract. These can be used   *
+* with any of the four pistons on the robot.                                         *
+------------------------------------------------------------------------------------*/
+
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
