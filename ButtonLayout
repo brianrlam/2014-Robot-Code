@@ -37,9 +37,6 @@ public class ButtonLayout{
         else if(!attackController.getRawButton(6)){
             shooter.setup();
         }
-         if (attackController.getRawButton(4)){
-            shooter.test1();
-         }
         /* if (attackController.getRawButton(2)){
             shooter.test2();
         }
