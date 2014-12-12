@@ -13,20 +13,20 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class Arm{
     private Piston armPiston;
+    //piston that will push out to shoot when there is a ball
 
     private Talon roller;
+    //roller on the arm that will spin in order to pick up the ball
+    
     public Arm(){
         armPiston= new Piston(4,3);
-        
-        roller= new Talon(5);//real num
+        roller= new Talon(5);
     }
     public void down(){
         armPiston.retract();
-     
     }
     public void up(){
         armPiston.extend();
-       
     }
     public void spin(){
         roller.set(1.0);
