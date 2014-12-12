@@ -9,10 +9,11 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.RobotDrive;
 
-/*-----------------------------------------------------------
-* The Shooter class instantiates the pistons, shooterPiston *
-* and the shotGate. The 
-------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------
+* The Shooter class instantiates the pistons, shooterPiston and the shotGate. The *
+* shoot method, for launching a ball, calls the retract, then extend method for   *
+* both sets of pistons.                                                           *
+----------------------------------------------------------------------------------*/
 
 /**
  *
@@ -41,6 +42,8 @@ public class Shooter {
     shotGate.retract();
         //shooterPiston.retract();
     }
+    
+    // Method used to launch a ball. Retracts shotGate and shooterPiston before extending.
     public void shoot(){
         shotGate.retract();
         t.start();
