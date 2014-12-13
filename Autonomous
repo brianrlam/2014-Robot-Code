@@ -6,6 +6,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 
+/*-------------------------------------------------------------------------
+* Auton method drives robot forward from center zone to scoring zone and  *
+* shoots a pre-loaded ball into the high goal. The Axis Cam was not used  *
+* to determine if the goal was hot or not.                                *
+-------------------------------------------------------------------------*/
+
 public class Autonomous {
    
     Timer timer = new Timer();
@@ -18,6 +24,8 @@ public class Autonomous {
         dT=driveTrain;
     }
     public void auton(int n)  {
+       
+       // Uses Axis Cam method, hotGoalsPresent, to detect if goal is hot or not.
        /* if(n==1){
             camera.imageProcesser();
             if (camera.hotGoalsPresent()) {
@@ -31,6 +39,8 @@ public class Autonomous {
                 }   // Prints out "No goals detected if boolean is false
             }
         }*/
+        
+        // Drives robot forward and shoots ball into high goal.
         if(n==2){
             System.out.println("autonomous yay");
             timer.start();
@@ -39,7 +49,7 @@ public class Autonomous {
             }
             //Timer.delay(2);
             while(timer.get()<5){
-                 dT.tankDrive(0.0, 0.0);
+                  dT.tankDrive(0.0, 0.0);
             }
             shooter.shoot();
             shooter.setup();
