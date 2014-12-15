@@ -1,3 +1,5 @@
+//This code is for the autonomous mode of the robot in Aerial Assist
+
 package edu.wpi.first.wpilibj.templates;
 
 //import edu.wpi.first.wpilibj.SimpleRobot;
