@@ -57,12 +57,12 @@ public class Camera {
        
        try {
          //a sample image taken with the axis camera must be inserted for testing -  getImage uses realtime pictures from the camera  hotGoalDetect = AxisCamera.getInstance();  
-         ColorImage currentPic;
-         currentPic = new RGBImage ("/HotGoal.jpg");
+        ColorImage currentPic;
+        currentPic = new RGBImage ("/HotGoal.jpg");
          
-         /*This only keeps green items (such as the retroreflective tape 
-           will be if a green led is shined onto it.)*/
-           BinaryImage colorIsolation = currentPic.thresholdHSL(93, 195, 80, 100, 57, 100);
+        // This only keeps green objects (such as the retroreflective tape will be if a green led is shined onto it.)
+        // This takes the currentPic and filters for color, making it into a new image called colorIsolation. 
+        BinaryImage colorIsolation = currentPic.thresholdHSL(93, 195, 80, 100, 57, 100);
           
            BinaryImage findTape = colorIsolation.particleFilter(filterGroup);
            // for(int i=0;i<10;i++){
