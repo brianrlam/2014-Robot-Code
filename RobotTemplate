@@ -15,7 +15,6 @@ THIS IS REAL CODE*/
 
 package edu.wpi.first.wpilibj.templates;
 
-
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -24,16 +23,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import  edu.wpi.first.wpilibj.Compressor;
 
-
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the SimpleRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
 public class RobotTemplate extends SimpleRobot {
-    
     
     private Joystick leftJoystick = new Joystick (2);
     private Joystick rightJoystick = new Joystick (1);
@@ -57,7 +47,7 @@ public class RobotTemplate extends SimpleRobot {
     }
    
     public void robotInit(){
-        
+        //method that starts and preps robot for competition
         for(int i=0; i<2;i++){
         System.out.println("roboinit!!!");
         }
@@ -71,6 +61,7 @@ public class RobotTemplate extends SimpleRobot {
         System.out.println("disabled");
       }
       } */     
+      
     /**
      * This function is called once each time the robot enters operator control.
      */
