@@ -1,39 +1,49 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+// This is the code for the arm in Aerial Assist
 
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Talon;
+
 /**
  *
  * @author anna
  */
+ 
 public class Arm{
-    private Piston armPiston;
     //piston that will push out to shoot when there is a ball
-
+    private Piston armPiston;
+    //roller on teh arm that will spin in order to pick up the ball
     private Talon roller;
-    //roller on the arm that will spin in order to pick up the ball
     
     public Arm(){
+        //creation of armPiston, the piston in ports 4 and 3 used to shoot the ball
         armPiston= new Piston(4,3);
+        //creation of roller, the Talon in port 5 that will be used to pick up the ball
         roller= new Talon(5);
     }
+    
+    //method used to make the arm go down/retract piston
     public void down(){
         armPiston.retract();
     }
+    
+    //method used to make the arm go up/extend piston
     public void up(){
         armPiston.extend();
     }
+    
+    //method used to make the roller spin clockwise (forwards)
     public void spin(){
         roller.set(1.0);
     }
+    
+    //method used to stop spinning the roller
     public void spinStop(){
         roller.set(0.0);
     }
+    
+    //method used to make the roller spin counterclockwise (backwards)
     public void spinBack(){
         roller.set(-1.0);
     }
