@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /*------------------------------------------------------------------------------------
 * Piston class creates methods for the solenoids, which control the pistons. This    *
@@ -23,21 +18,24 @@ public class Piston{
     private DoubleSolenoid piston;
     
     public Piston (int port1,int port2){
-        //port will be replaced by the correct # for the robot being used
+        //creation of piston in ports 1 and 2
         piston= new DoubleSolenoid ( port1, port2);
     }
     
     public void extend(){
+        //method used to extend the pistons
        // piston.set(DoubleSolenoid.Value.kOff);
         piston.set(DoubleSolenoid.Value.kForward);
         //System.out.println("extended"+DoubleSolenoid.Value.kForward);
     }
     public void off(){
+        //method used stop piston movement through movement of air
        // piston.set(DoubleSolenoid.Value.kOff);
         piston.set(DoubleSolenoid.Value.kOff);
         //System.out.println("off "+DoubleSolenoid.Value.kOff);
     }
     public void retract(){
+        //method used to retract the pistons
        // piston.set(DoubleSolenoid.Value.kOff);
         piston.set(DoubleSolenoid.Value.kReverse);
         //System.out.println("retract"+DoubleSolenoid.Value.kReverse);
