@@ -1,7 +1,4 @@
 
-
-
-
 package edu.wpi.first.wpilibj.templates;
 //package com.bloomberg.vision;
 
@@ -18,6 +15,14 @@ import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
 import edu.wpi.first.wpilibj.image.RGBImage;
 
+    /*----------------------------------------------------------------------------------
+    * This is the code for the Axis Cam in Aerial Assist. If a goal is "hot", meaning  *
+    * that it is lit and the retro-reflective tape is flipped out, this will enable    *
+    * the robot to detect the goal. A green light on the camera hits the tape,         *
+    * and is reflected back to the camera. When the camera takes an image, it uses     *
+    * this code to "look" for a green object matching the size and shape of the tape.  *
+    ----------------------------------------------------------------------------------*/
+
 /**
 *
 * @authors ngang/suazor/wicksk
@@ -25,49 +30,50 @@ import edu.wpi.first.wpilibj.image.RGBImage;
 
 public class Camera {
 
-    CriteriaCollection filterGroup;
     //CriteriaCollection is a group of conditions for the particle filter to use.
+    CriteriaCollection filterGroup;
     public AxisCamera hotGoalDetect;
    
+    // imageProcesser instantiates the CriteriaCollection/Camera and looks for rectangles of a certain height and width
+    // This gives a set of conditions (criteria) to filter the image with.
     public void imageProcesser() {
-         /*imageProcesser instantiates the CriteriaCollection/Camera 
-         and looks for rectangles of a certain height and width*/
-         filterGroup = new CriteriaCollection();
+        
+        filterGroup = new CriteriaCollection();
         filterGroup.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_DIAGONAL, 60, 295, false);
         filterGroup.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA, 1300, 1900, false);
-         filterGroup.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 10, 130, false);
-         filterGroup.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 35, 550, false);
-         /*MIN AND MAX PIXEL LIMITS NEED TO BE TESTED AND ADJUSTED THESE ARE JUST PLACEHOLDER VALUES FOR THE LEGIT ONES. 
-         CAN ONLY BE TESTED ONCE WE CAN TEST CODE. AKA CONNECT TO ROBOT.*/
-        /* final int Y_IMAGE_RES = 480;        //X Image resolution in pixels. 120, 240, 480
-         final double VIEW_ANGLE = 49;       //Axis M1013
-         */
-}
-   public boolean hotGoalsPresent() {
+        filterGroup.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 10, 130, false);
+        filterGroup.addCriteria(NIVision.MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 35, 550, false);
+        
+        //MIN AND MAX PIXEL LIMITS NEED TO BE TESTED AND ADJUSTED THESE ARE JUST PLACEHOLDER VALUES FOR THE LEGIT ONES. 
+        // THIS CAN ONLY BE TESTED ONCE WE CAN TEST CODE. AKA CONNECT TO ROBOT.
+        
+        // final int Y_IMAGE_RES = 480;        //X Image resolution in pixels. 120, 240, 480
+        // final double VIEW_ANGLE = 49;       //Axis M1013
+        }
+        
+    //Creates the boolean, returned at the end of the method which says if the hot goals are present.
+    public boolean hotGoalsPresent() {
         boolean goalsThere = false;
-       /*Creates the boolean which is returned at the end of the method which
-       says if the hot goals are present.*/
        
-    
        try {
-          hotGoalDetect = AxisCamera.getInstance();  
+         //a sample image taken with the axis camera must be inserted for testing -  getImage uses realtime pictures from the camera  hotGoalDetect = AxisCamera.getInstance();  
          ColorImage currentPic;
          currentPic = new RGBImage ("/HotGoal.jpg");
-          
-           /*a sample image taken with the axis camera must be inserted for 
-             testing -  getImage uses realtime pictures from the camera */
+         
+         /*This only keeps green items (such as the retroreflective tape 
+           will be if a green led is shined onto it.)*/
            BinaryImage colorIsolation = currentPic.thresholdHSL(93, 195, 80, 100, 57, 100);
           
            BinaryImage findTape = colorIsolation.particleFilter(filterGroup);
            // for(int i=0;i<10;i++){
            //System.out.println (colorIsolation.getNumberParticles());
-            //}
-           /*This only keeps green items (such as the retroreflective tape 
-           will be if a green led is shined onto it.)*/
-         // BinaryImage bigParticlesOnly = colorIsolation.removeSmallObjects(true, 1);
-           // for(int i=0;i<10;i++){
-             // System.out.println(bigParticlesOnly.getNumberParticles());
-              //}          
+           //}
+           
+           
+            // BinaryImage bigParticlesOnly = colorIsolation.removeSmallObjects(true, 1);
+            // for(int i=0;i<10;i++){
+            // System.out.println(bigParticlesOnly.getNumberParticles());
+            //}          
 
            /*Keep only particles above a certain size by eroding the image 
            down three times. The 'false' here indicates that it is
