@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//This code is used to program the buttons on the joysticks for Aerial Assist
 
 package edu.wpi.first.wpilibj.templates;
 
@@ -12,6 +8,8 @@ import edu.wpi.first.wpilibj.Timer;
  *
  * @author anna
  */
+ 
+ //creation of the joysticks, shooter, and arm
 public class ButtonLayout{
     private Joystick leftStick;
     private Joystick rightStick;
@@ -19,6 +17,7 @@ public class ButtonLayout{
     private Shooter shooter;
     private Arm ballGetter;
     
+    //assigning variables to each joystick, shooter, and arm
     public ButtonLayout(Joystick left, Joystick right, Joystick atk,
                              Shooter shoot, Arm ballGetter){
         leftStick= left;
@@ -28,12 +27,15 @@ public class ButtonLayout{
         this.ballGetter= ballGetter;
     }
     
+    //method used to configure the buttons
     public void configureButtons() {
         
+        //if button 6 is pressed on the attack controller, shoot the ball
         if (attackController.getRawButton(6)){
             shooter.shoot();
-
         }
+        
+        //if button 6 on the attack controller is not pressed, set up the shooter
         else if(!attackController.getRawButton(6)){
             shooter.setup();
         }
@@ -46,22 +48,34 @@ public class ButtonLayout{
          if (attackController.getRawButton(8)){
             shooter.test3();
          }*/
+         
+         //if button 5 on the attack controller is pressed, then raise the arm
         if (attackController.getRawButton(5)){
             ballGetter.up();
         }
+        
+        //if button 7 on the attack controller is pressed, then lower the arm
          if (attackController.getRawButton(7)){
             ballGetter.down();
         }
+        
+        //if button 3 on the attack controller is pressed, then spin the roller forwards
         if(attackController.getRawButton(3)){
             ballGetter.spin();
         }
+        
+        //if button 3 on the attack controller is not pressed, then stop spinning
         else if(!attackController.getRawButton(3)){
             ballGetter.spinStop();
            // System.out.println("NOT rolling");
         }
+        
+        //if button 1 on the attack controller is pressed, then spin the roller backwards
         if(attackController.getRawButton(1)){
             ballGetter.spinBack();
         }
+        
+        //if button 1 on the attack controller is not pressed, then stop spinning
         else if(!attackController.getRawButton(1)){
             ballGetter.spinStop();
            // System.out.println("NOT rolling");
